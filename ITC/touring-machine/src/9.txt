@@ -1,0 +1,25 @@
+6
+3 a b c
+4 # * @ B
+5
+9
+0 a 1 # R
+1 # 1 # R
+1 a 1 a R
+1 * 1 * R
+1 b 2 * R
+2 b 2 b R
+2 @ 2 @ R
+2 c 3 @ L
+3 # 3 # L
+10
+abbcca
+aabbcc
+bac
+aaabbbcccc
+-
+abcabc
+abc
+abcc
+c
+aaabbbbccc

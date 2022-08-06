@@ -1,0 +1,34 @@
+** Manual para execucação do trabalho 2 da **
+** Disciplina de Introdução a Teorida da **
+** Computação **
+
+Para a execução do código do trabalho 2,
+siga o roteiro abaixo:
+
+1 - Acesse o diretório "src" dentro do
+diretório onde esse manual se encontra.
+
+2 - Certifique-se que é possível rodar um
+arquivo .c através do gcc nesse diretório.
+É possível fazer a validação atrvés do comando:
+
+gcc --version
+
+Caso não esteja instalado, você pode fazer o
+download nesse link:
+
+https://gcc.gnu.org/install/binaries.html
+
+3 - Dentro desse diretório digite a seguinte
+mensagem no terminal dentro do diretório "src" para
+criar os executáveis:
+
+make all
+
+4 - Para executar o programa digite:
+
+make run
+
+5 - O seu terminal começará a receber o stdin, e ao
+fim de todas as linhas de entrada, o programá imprimirá
+as respostas no terminal.

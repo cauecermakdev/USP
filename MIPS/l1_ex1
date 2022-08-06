@@ -1,0 +1,73 @@
+#.align 2
+.data #segmento de dados
+string1: .asciiz "Entre com um numero\n"
+string2: .asciiz "Digite N\n"
+barraN: .asciiz "\n"
+decrementa: .word -1
+cont: .word 0
+fat: .word 1
+
+
+.text
+
+main:
+#1 parte
+	li $v0, 4 #4 servico q imprime string / carregada em $v0 com servico pra imprimir string
+	la $a0, string1 #carrega a0 com o endereco da string 
+	syscall 
+
+#le inteiro do teclado		
+	li $v0, 5
+	syscall
+	move $t0, $v0 #salva valor no registrador
+	
+#printa inteiro lido	
+	li $v0,1
+	move $a0, $t0
+	syscall
+	
+#cont = n
+	sw $t0, cont
+#	li $v0,1
+#	syscall
+
+
+#loop while
+loop_while:
+	
+	#fat = fat*cont
+	lw $t1, fat # $t1 = fat
+	lw $t2, cont #$t2 = cont
+	mul $t3, $t1, $t2 #fat*cont
+	sw $t3, fat #fat = $t3
+	
+	li $v0, 1#printando fat - ultimo registrador que mexi
+	syscall
+	
+	#cont = cont -1
+	lw $t4, cont
+	lw $t6, decrementa
+	#li $t6,-1
+	sub $t5,$t4,$t6 #$t5 =  cont -1
+	move $t4, $t5 #cont = $t5
+	li $v0, 1 #printa
+	syscall
+
+	#stop quando j = 3
+	li $s3,1
+	add $s2, $s1, $s3
+	move $s3, $s2
+	li $s4,3
+	beq $s3,$s4, exit
+	
+	li $t5,1 #pode dar merda rs 
+	bgt $t4,$t5, loop_while
+	
+#printar fat
+	lw $t1, fat
+	li $v0, 1
+	syscall
+
+
+
+exit:

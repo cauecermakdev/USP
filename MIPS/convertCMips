@@ -1,0 +1,544 @@
+insertAtBeginning:
+        addiu   $sp,$sp,-40
+        sw      $31,36($sp)
+        sw      $fp,32($sp)
+        move    $fp,$sp
+        sw      $4,40($fp)
+        sw      $5,44($fp)
+        li      $4,8                        # 0x8
+        jal     malloc
+        nop
+
+        sw      $2,24($fp)
+        lw      $2,24($fp)
+        lw      $3,44($fp)
+        nop
+        sw      $3,0($2)
+        lw      $2,40($fp)
+        nop
+        lw      $3,0($2)
+        lw      $2,24($fp)
+        nop
+        sw      $3,4($2)
+        lw      $2,40($fp)
+        lw      $3,24($fp)
+        nop
+        sw      $3,0($2)
+        nop
+        move    $sp,$fp
+        lw      $31,36($sp)
+        lw      $fp,32($sp)
+        addiu   $sp,$sp,40
+        j       $31
+        nop
+
+$LC0:
+        .ascii  "the given previous node cannot be NULL\000"
+insertAfter:
+        addiu   $sp,$sp,-40
+        sw      $31,36($sp)
+        sw      $fp,32($sp)
+        move    $fp,$sp
+        sw      $4,40($fp)
+        sw      $5,44($fp)
+        lw      $2,40($fp)
+        nop
+        bne     $2,$0,$L3
+        nop
+
+        lui     $2,%hi($LC0)
+        addiu   $4,$2,%lo($LC0)
+        jal     printf
+        nop
+
+        b       $L2
+        nop
+
+$L3:
+        li      $4,8                        # 0x8
+        jal     malloc
+        nop
+
+        sw      $2,24($fp)
+        lw      $2,24($fp)
+        lw      $3,44($fp)
+        nop
+        sw      $3,0($2)
+        lw      $2,40($fp)
+        nop
+        lw      $3,4($2)
+        lw      $2,24($fp)
+        nop
+        sw      $3,4($2)
+        lw      $2,40($fp)
+        lw      $3,24($fp)
+        nop
+        sw      $3,4($2)
+$L2:
+        move    $sp,$fp
+        lw      $31,36($sp)
+        lw      $fp,32($sp)
+        addiu   $sp,$sp,40
+        j       $31
+        nop
+
+insertAtEnd:
+        addiu   $sp,$sp,-40
+        sw      $31,36($sp)
+        sw      $fp,32($sp)
+        move    $fp,$sp
+        sw      $4,40($fp)
+        sw      $5,44($fp)
+        li      $4,8                        # 0x8
+        jal     malloc
+        nop
+
+        sw      $2,28($fp)
+        lw      $2,40($fp)
+        nop
+        lw      $2,0($2)
+        nop
+        sw      $2,24($fp)
+        lw      $2,28($fp)
+        lw      $3,44($fp)
+        nop
+        sw      $3,0($2)
+        lw      $2,28($fp)
+        nop
+        sw      $0,4($2)
+        lw      $2,40($fp)
+        nop
+        lw      $2,0($2)
+        nop
+        bne     $2,$0,$L8
+        nop
+
+        lw      $2,40($fp)
+        lw      $3,28($fp)
+        nop
+        sw      $3,0($2)
+        b       $L5
+        nop
+
+$L9:
+        lw      $2,24($fp)
+        nop
+        lw      $2,4($2)
+        nop
+        sw      $2,24($fp)
+$L8:
+        lw      $2,24($fp)
+        nop
+        lw      $2,4($2)
+        nop
+        bne     $2,$0,$L9
+        nop
+
+        lw      $2,24($fp)
+        lw      $3,28($fp)
+        nop
+        sw      $3,4($2)
+        nop
+$L5:
+        move    $sp,$fp
+        lw      $31,36($sp)
+        lw      $fp,32($sp)
+        addiu   $sp,$sp,40
+        j       $31
+        nop
+
+deleteNode:
+        addiu   $sp,$sp,-40
+        sw      $31,36($sp)
+        sw      $fp,32($sp)
+        move    $fp,$sp
+        sw      $4,40($fp)
+        sw      $5,44($fp)
+        lw      $2,40($fp)
+        nop
+        lw      $2,0($2)
+        nop
+        sw      $2,24($fp)
+        lw      $2,24($fp)
+        nop
+        beq     $2,$0,$L13
+        nop
+
+        lw      $2,24($fp)
+        nop
+        lw      $3,0($2)
+        lw      $2,44($fp)
+        nop
+        bne     $3,$2,$L13
+        nop
+
+        lw      $2,24($fp)
+        nop
+        lw      $3,4($2)
+        lw      $2,40($fp)
+        nop
+        sw      $3,0($2)
+        lw      $4,24($fp)
+        jal     free
+        nop
+
+        b       $L10
+        nop
+
+$L15:
+        lw      $2,24($fp)
+        nop
+        sw      $2,28($fp)
+        lw      $2,24($fp)
+        nop
+        lw      $2,4($2)
+        nop
+        sw      $2,24($fp)
+$L13:
+        lw      $2,24($fp)
+        nop
+        beq     $2,$0,$L14
+        nop
+
+        lw      $2,24($fp)
+        nop
+        lw      $3,0($2)
+        lw      $2,44($fp)
+        nop
+        bne     $3,$2,$L15
+        nop
+
+$L14:
+        lw      $2,24($fp)
+        nop
+        beq     $2,$0,$L17
+        nop
+
+        lw      $2,24($fp)
+        nop
+        lw      $3,4($2)
+        lw      $2,28($fp)
+        nop
+        sw      $3,4($2)
+        lw      $4,24($fp)
+        jal     free
+        nop
+
+        b       $L10
+        nop
+
+$L17:
+        nop
+$L10:
+        move    $sp,$fp
+        lw      $31,36($sp)
+        lw      $fp,32($sp)
+        addiu   $sp,$sp,40
+        j       $31
+        nop
+
+searchNode:
+        addiu   $sp,$sp,-24
+        sw      $fp,20($sp)
+        move    $fp,$sp
+        sw      $4,24($fp)
+        sw      $5,28($fp)
+        lw      $2,24($fp)
+        nop
+        lw      $2,0($2)
+        nop
+        sw      $2,8($fp)
+        b       $L19
+        nop
+
+$L22:
+        lw      $2,8($fp)
+        nop
+        lw      $3,0($2)
+        lw      $2,28($fp)
+        nop
+        bne     $3,$2,$L20
+        nop
+
+        li      $2,1                        # 0x1
+        b       $L21
+        nop
+
+$L20:
+        lw      $2,8($fp)
+        nop
+        lw      $2,4($2)
+        nop
+        sw      $2,8($fp)
+$L19:
+        lw      $2,8($fp)
+        nop
+        bne     $2,$0,$L22
+        nop
+
+        move    $2,$0
+$L21:
+        move    $sp,$fp
+        lw      $fp,20($sp)
+        addiu   $sp,$sp,24
+        j       $31
+        nop
+
+sortLinkedList:
+        addiu   $sp,$sp,-32
+        sw      $fp,28($sp)
+        move    $fp,$sp
+        sw      $4,32($fp)
+        lw      $2,32($fp)
+        nop
+        lw      $2,0($2)
+        nop
+        sw      $2,8($fp)
+        sw      $0,12($fp)
+        lw      $2,32($fp)
+        nop
+        beq     $2,$0,$L31
+        nop
+
+        b       $L26
+        nop
+
+$L30:
+        lw      $2,8($fp)
+        nop
+        lw      $2,4($2)
+        nop
+        sw      $2,12($fp)
+        b       $L27
+        nop
+
+$L29:
+        lw      $2,8($fp)
+        nop
+        lw      $3,0($2)
+        lw      $2,12($fp)
+        nop
+        lw      $2,0($2)
+        nop
+        slt     $2,$2,$3
+        beq     $2,$0,$L28
+        nop
+
+        lw      $2,8($fp)
+        nop
+        lw      $2,0($2)
+        nop
+        sw      $2,16($fp)
+        lw      $2,12($fp)
+        nop
+        lw      $3,0($2)
+        lw      $2,8($fp)
+        nop
+        sw      $3,0($2)
+        lw      $2,12($fp)
+        lw      $3,16($fp)
+        nop
+        sw      $3,0($2)
+$L28:
+        lw      $2,12($fp)
+        nop
+        lw      $2,4($2)
+        nop
+        sw      $2,12($fp)
+$L27:
+        lw      $2,12($fp)
+        nop
+        bne     $2,$0,$L29
+        nop
+
+        lw      $2,8($fp)
+        nop
+        lw      $2,4($2)
+        nop
+        sw      $2,8($fp)
+$L26:
+        lw      $2,8($fp)
+        nop
+        bne     $2,$0,$L30
+        nop
+
+        b       $L23
+        nop
+
+$L31:
+        nop
+$L23:
+        move    $sp,$fp
+        lw      $fp,28($sp)
+        addiu   $sp,$sp,32
+        j       $31
+        nop
+
+$LC1:
+        .ascii  " %d \000"
+printList:
+        addiu   $sp,$sp,-32
+        sw      $31,28($sp)
+        sw      $fp,24($sp)
+        move    $fp,$sp
+        sw      $4,32($fp)
+        b       $L33
+        nop
+
+$L34:
+        lw      $2,32($fp)
+        nop
+        lw      $2,0($2)
+        nop
+        move    $5,$2
+        lui     $2,%hi($LC1)
+        addiu   $4,$2,%lo($LC1)
+        jal     printf
+        nop
+
+        lw      $2,32($fp)
+        nop
+        lw      $2,4($2)
+        nop
+        sw      $2,32($fp)
+$L33:
+        lw      $2,32($fp)
+        nop
+        bne     $2,$0,$L34
+        nop
+
+        nop
+        move    $sp,$fp
+        lw      $31,28($sp)
+        lw      $fp,24($sp)
+        addiu   $sp,$sp,32
+        j       $31
+        nop
+
+$LC2:
+        .ascii  "Linked list: \000"
+$LC3:
+        .ascii  "\012After deleting an element: \000"
+$LC4:
+        .ascii  "\012%d is found\000"
+$LC5:
+        .ascii  "\012%d is not found\000"
+$LC6:
+        .ascii  "\012Sorted List: \000"
+main:
+        addiu   $sp,$sp,-40
+        sw      $31,36($sp)
+        sw      $fp,32($sp)
+        move    $fp,$sp
+        sw      $0,28($fp)
+        addiu   $2,$fp,28
+        li      $5,1                        # 0x1
+        move    $4,$2
+        jal     insertAtEnd
+        nop
+
+        addiu   $2,$fp,28
+        li      $5,2                        # 0x2
+        move    $4,$2
+        jal     insertAtBeginning
+        nop
+
+        addiu   $2,$fp,28
+        li      $5,3                        # 0x3
+        move    $4,$2
+        jal     insertAtBeginning
+        nop
+
+        addiu   $2,$fp,28
+        li      $5,4                        # 0x4
+        move    $4,$2
+        jal     insertAtEnd
+        nop
+
+        lw      $2,28($fp)
+        nop
+        lw      $2,4($2)
+        li      $5,5                        # 0x5
+        move    $4,$2
+        jal     insertAfter
+        nop
+
+        lui     $2,%hi($LC2)
+        addiu   $4,$2,%lo($LC2)
+        jal     printf
+        nop
+
+        lw      $2,28($fp)
+        nop
+        move    $4,$2
+        jal     printList
+        nop
+
+        lui     $2,%hi($LC3)
+        addiu   $4,$2,%lo($LC3)
+        jal     printf
+        nop
+
+        addiu   $2,$fp,28
+        li      $5,3                        # 0x3
+        move    $4,$2
+        jal     deleteNode
+        nop
+
+        lw      $2,28($fp)
+        nop
+        move    $4,$2
+        jal     printList
+        nop
+
+        li      $2,3                        # 0x3
+        sw      $2,24($fp)
+        addiu   $2,$fp,28
+        lw      $5,24($fp)
+        move    $4,$2
+        jal     searchNode
+        nop
+
+        beq     $2,$0,$L36
+        nop
+
+        lw      $5,24($fp)
+        lui     $2,%hi($LC4)
+        addiu   $4,$2,%lo($LC4)
+        jal     printf
+        nop
+
+        b       $L37
+        nop
+
+$L36:
+        lw      $5,24($fp)
+        lui     $2,%hi($LC5)
+        addiu   $4,$2,%lo($LC5)
+        jal     printf
+        nop
+
+$L37:
+        addiu   $2,$fp,28
+        move    $4,$2
+        jal     sortLinkedList
+        nop
+
+        lui     $2,%hi($LC6)
+        addiu   $4,$2,%lo($LC6)
+        jal     printf
+        nop
+
+        lw      $2,28($fp)
+        nop
+        move    $4,$2
+        jal     printList
+        nop
+
+        move    $2,$0
+        move    $sp,$fp
+        lw      $31,36($sp)
+        lw      $fp,32($sp)
+        addiu   $sp,$sp,40
+        j       $31
+        nop
